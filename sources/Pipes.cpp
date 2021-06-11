@@ -47,15 +47,13 @@ void Pipes::update(sf::RenderTarget& target)
 
 void Pipes::render(sf::RenderTarget& target)
 {
-    target.draw(this->m_sprite_top);
-    target.draw(this->m_sprite_bottom);
+    target.draw(m_sprite_top);
+    target.draw(m_sprite_bottom);
 }
 
 bool Pipes::checkPlayerSuccess(Player& player)
 {
     if (player.getPosition().x > m_sprite_bottom.getPosition().x && 
-        // player.getPosition().y > m_sprite_bottom.getPosition().y &&
-        // player.getPosition().x + player.getRect().width > m_sprite_bottom.getPosition().x &&
         player.getPosition().x + player.getRect().width < m_sprite_bottom.getPosition().x + m_sprite_bottom.getGlobalBounds().width) {
             return true;
     }

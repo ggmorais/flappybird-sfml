@@ -7,7 +7,6 @@
 class ScoreBoard 
 {
     private:
-        // ScoreDigit* p_digits[3];
         std::vector<ScoreDigit*> p_digits;
 
         int m_score = 0;

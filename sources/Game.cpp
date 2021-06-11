@@ -6,6 +6,7 @@ Game::Game()
     p_window = new sf::RenderWindow(m_videoMode, "Flappy Bird");
     p_window->setFramerateLimit(60);
 
+    p_background = new Background("./assets/sprites");
     p_player = new Player("./assets/sprites/bluebird-midflap.png");
     p_floor = new Floor("./assets/sprites/base.png");
     p_message = new Message("./assets/sprites/message.png");
@@ -66,6 +67,17 @@ void Game::checkCollisions()
     }
 }
 
+void Game::checkPlayerSuccess()
+{
+    for (int i = 0; i < p_pipes.size(); i++) {
+        if (i == m_lastScorePipeIdx || !p_pipes[i]) continue;
+        if (p_pipes[i]->checkPlayerSuccess(*p_player)) {
+            p_scoreBoard->updateScore();
+            m_lastScorePipeIdx = i;
+        }
+    }
+}
+
 void Game::updateObjects()
 {
     p_player->update(*p_window, m_mouseLeftPressed);
@@ -87,17 +99,10 @@ void Game::update()
 
     if (!m_paused) {
         updateObjects();
+        checkPlayerSuccess();
     }
 
     checkCollisions();
-
-    for (int i = 0; i <= p_pipes.size(); i++) {
-        if (i == m_lastScorePipeIdx || !p_pipes[i]) continue;
-        if (p_pipes[i]->checkPlayerSuccess(*p_player)) {
-            p_scoreBoard->updateScore();
-            m_lastScorePipeIdx = i;
-        }
-    }
 
     m_mouseLeftPressed = false;
 }
@@ -105,6 +110,8 @@ void Game::update()
 void Game::render()
 {   
     p_window->clear();
+
+    p_background->render(*p_window);
 
     if (!m_paused) {
         p_player->render(*p_window);

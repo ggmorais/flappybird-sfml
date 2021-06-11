@@ -44,6 +44,7 @@ void ScoreBoard::clearScore()
         p_digits[i] = nullptr;
     }
 
+    p_digits.clear();
+    p_digits.push_back(new ScoreDigit("assets/sprites/", 0));
     m_score = 0;
-    p_digits[0]->setValue(0);
 }

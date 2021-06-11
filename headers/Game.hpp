@@ -4,6 +4,7 @@
 #include <Pipes.hpp>
 #include <Message.hpp>
 #include <ScoreBoard.hpp>
+#include <Background.hpp>
 
 #ifndef GAME
 #define GAME
@@ -18,7 +19,8 @@ class Game
         Player* p_player;
         Floor* p_floor;
         Message* p_message;
-        ScoreBoard* p_scoreBoard; 
+        ScoreBoard* p_scoreBoard;
+        Background* p_background;
 
         std::vector<Pipes*> p_pipes;
 
@@ -38,6 +40,7 @@ class Game
         void spawnPipes();
         void updateObjects();
         void checkCollisions();
+        void checkPlayerSuccess();
 };
 
 #endif
